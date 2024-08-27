@@ -4,26 +4,27 @@ type Product = {
   id: number;
   title: string;
   price: number;
+  category: string;
   description: string;
-  images: string[];
+  image: string;
 };
 
 type ApiState = {
   data: Product[] | any;
   isLoading: boolean;
-  isError: string | null;
+  isError: boolean;
 };
 
 const initialState: ApiState = {
   data: null,
   isLoading: false,
-  isError: null,
+  isError: false,
 };
 
 export const fetchProduct = createAsyncThunk<Product[]>(
   "fetchProduct",
   async () => {
-    const response = await fetch("https://api.escuelajs.co/api/v1/products");
+    const response = await fetch("https://fakestoreapi.com/products");
     return response.json();
   }
 );
@@ -42,9 +43,9 @@ export const AllProductSlice = createSlice({
       state.data = action.payload;
     });
 
-    builder.addCase(fetchProduct.rejected, (state, action) => {
+    builder.addCase(fetchProduct.rejected, (state) => {
       state.isLoading = false;
-      state.isError = action.error.message || "failed to fetch product";
+      state.isError = true;
     });
   },
 });
