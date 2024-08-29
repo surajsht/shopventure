@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { fetchProduct } from "../../features/allProducts/AllProductSlice";
+import { addToCart } from "../../features/cart/CartSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -42,7 +43,10 @@ const Products = () => {
                 />
                 <h2 className="text-lg my-3">{title}</h2>
                 <span className="block font-bold text-lg"> ${price} </span>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4">
+                <button
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4"
+                  onClick={() => dispatch(addToCart(item))}
+                >
                   Add to cart
                 </button>
               </div>

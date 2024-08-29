@@ -1,14 +1,27 @@
 import { FiShoppingCart } from "react-icons/fi";
+import { useAppSelector } from "../../app/hooks";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+type borderType = {
+  border: boolean;
+};
+
+const Navbar = ({ border }: borderType) => {
+  const { totalQuantity } = useAppSelector((state) => state.cart);
+
   return (
     <nav className="container">
-      <div className="flex items-center justify-between border-b-2 py-6">
-        <h2 className="text-2xl font-bold">ShopVerse</h2>
+      <div
+        className={`flex items-center justify-between py-6 ${border ? "border-b-2" : ""}`}
+      >
+        <h2 className="text-2xl font-bold">
+          <Link to="/">ShopVerse</Link>
+        </h2>
 
-        <div className="cursor-pointer">
+        <Link to="/cart" className="cursor-pointer">
           <FiShoppingCart className="text-xl" />
-        </div>
+          <span> {totalQuantity} </span>
+        </Link>
       </div>
     </nav>
   );
