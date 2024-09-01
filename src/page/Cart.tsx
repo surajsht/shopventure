@@ -26,7 +26,7 @@ const Cart = () => {
     dispatch(CartCount());
   };
 
-  const removeProduct = (id) => {
+  const removeProduct = (id: number) => {
     dispatch(removeItem(id));
     dispatch(CartCount());
   };
