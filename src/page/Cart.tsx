@@ -1,6 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { cartIncOrDec } from "../features/cart/CartSlice";
+import {
+  cartIncOrDec,
+  CartCount,
+  removeItem,
+} from "../features/cart/CartSlice";
 import Navbar from "../component/navbar/Navbar";
 
 type Product = {
@@ -19,6 +23,12 @@ const Cart = () => {
 
   const handleQuantityChange = (id: number, type: string) => {
     dispatch(cartIncOrDec({ id, type }));
+    dispatch(CartCount());
+  };
+
+  const removeProduct = (id) => {
+    dispatch(removeItem(id));
+    dispatch(CartCount());
   };
 
   return (
@@ -40,7 +50,7 @@ const Cart = () => {
             return (
               <div
                 key={id}
-                className="flex items-center justify-between gap-24"
+                className="flex items-center justify-between gap-24 mb-8 pb-8 not-last-child:border-b"
               >
                 <div className="flex items-center gap-4 w-[60%]">
                   <LazyLoadImage
@@ -80,7 +90,12 @@ const Cart = () => {
 
                 <div className="w-[7.5%]">${(price * quantity).toFixed(2)}</div>
 
-                <div className="text-2xl font-medium cursor-pointer">x</div>
+                <div
+                  className="text-2xl font-medium cursor-pointer"
+                  onClick={() => removeProduct(id)}
+                >
+                  x
+                </div>
               </div>
             );
           })}

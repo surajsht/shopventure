@@ -8,5 +8,9 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant("not-last-child", "&:not(:last-child)");
+    },
+  ],
 };
