@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   prevPage,
   nextPage,
-  buttonClick,
+  selectPagination,
 } from "../../features/pagination/PaginationSlice";
 
 const Pagination = () => {
@@ -41,7 +41,7 @@ const Pagination = () => {
           <button
             key={idx}
             className={`${idx === value ? "bg-blue-700 text-white" : ""} py-1 px-3 hover:bg-blue-700 hover:text-white`}
-            onClick={() => dispatch(buttonClick(idx))}
+            onClick={() => dispatch(selectPagination(idx))}
           >
             {item}
           </button>

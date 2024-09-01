@@ -12,11 +12,15 @@ export const PaginationSlice = createSlice({
     nextPage: (state) => {
       state.value++;
     },
-    buttonClick: (state, action) => {
+    selectPagination: (state, action) => {
       state.value = action.payload;
+    },
+    resetPagination: (state) => {
+      state.value = 0;
     },
   },
 });
 
-export const { prevPage, nextPage, buttonClick } = PaginationSlice.actions;
+export const { prevPage, nextPage, selectPagination, resetPagination } =
+  PaginationSlice.actions;
 export default PaginationSlice.reducer;

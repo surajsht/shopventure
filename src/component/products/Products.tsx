@@ -15,12 +15,9 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(fetchProduct());
-  }, [dispatch]);
-
-  useEffect(() => {
     setStartIdx(value * 8);
     setEndIdx((value + 1) * 8);
-  }, [value]);
+  }, [dispatch, value]);
 
   if (isLoading) return <h1> Loading... </h1>;
 
