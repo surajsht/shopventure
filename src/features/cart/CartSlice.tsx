@@ -34,7 +34,6 @@ export const CartSlice = createSlice({
         state.value.push({ ...newItem, quantity: 1 });
       } else {
         existingItem.quantity++;
-        existingItem.price += newItem.price;
       }
     },
 

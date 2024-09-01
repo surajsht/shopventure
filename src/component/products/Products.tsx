@@ -1,17 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { fetchProduct } from "../../features/allProducts/AllProductSlice";
 import { addToCart, CartCount } from "../../features/cart/CartSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Pagination from "../pagination/Pagination";
 
 const Products = () => {
+  const [startIdx, setStartIdx] = useState(0);
+  const [endIdx, setEndIdx] = useState(8);
   const { isLoading, data, isError } = useAppSelector((state) => state.product);
+  const { value } = useAppSelector((state) => state.pagination);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
+
+  useEffect(() => {
+    setStartIdx(value * 8);
+    setEndIdx((value + 1) * 8);
+  }, [value]);
 
   if (isLoading) return <h1> Loading... </h1>;
 
@@ -35,7 +44,7 @@ const Products = () => {
     <div className="py-8">
       <div className="container">
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-          {data?.map((item: Product) => {
+          {data?.slice(startIdx, endIdx).map((item: Product) => {
             const { id, title, price, image } = item;
 
             return (
@@ -58,6 +67,8 @@ const Products = () => {
             );
           })}
         </div>
+
+        <Pagination />
       </div>
     </div>
   );

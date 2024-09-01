@@ -13,12 +13,14 @@ type ApiState = {
   data: Product[] | any;
   isLoading: boolean;
   isError: boolean;
+  totalProduct: number;
 };
 
 const initialState: ApiState = {
   data: null,
   isLoading: false,
   isError: false,
+  totalProduct: 0,
 };
 
 export const fetchProduct = createAsyncThunk<Product[]>(
@@ -41,6 +43,7 @@ export const AllProductSlice = createSlice({
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
+      state.totalProduct = state.data.length;
     });
 
     builder.addCase(fetchProduct.rejected, (state) => {
